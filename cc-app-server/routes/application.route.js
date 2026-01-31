@@ -4,5 +4,5 @@ const applicationController = require('../controllers/application.controller');
 const authenticate = require('../middlewares/authenticate.middleware');
 
 /* GET all applications */
-router.get('/', authenticate, applicationController.getAllApplications);
+router.get('/fetch', authenticate, applicationController.getAllApplications);
 module.exports = router;
