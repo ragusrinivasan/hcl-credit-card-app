@@ -109,6 +109,10 @@ Admin
       "annualIncome": "Number",
       "email": "String",
       "phone": "String",
+	  "profession": { 
+	  "type": "SALARIED | SELF_EMPLOYED",
+	  "company": "NAME | NOT_APPLIED",
+	  }
 	  "address": {
 	  	 "line1":"String",
 		 "line2":"String",
