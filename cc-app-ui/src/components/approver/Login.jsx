@@ -3,13 +3,16 @@ import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import api from '../../api/axios'
-
+import { useNavigate } from 'react-router-dom';
 export const loginSchema = z.object({
     email: z.string().email("Invalid email"),
     password: z.string().min(6, "Minimum 6 characters"),
 })
 
+
 function Login() {
+    const navigate = useNavigate();
+    const [loginError, setLoginError] = React.useState(null)
     const {
         register,
         handleSubmit,
@@ -19,10 +22,16 @@ function Login() {
 
     })
 
-    const onSubmit = async (data) => {
-        console.log("FORM DATA:", data) // <-- you will get email here
-        const res = await api.post("/approver/login", data)
-        console.log("API Response:", res.data)
+    const onSubmit = (data) => {
+        setLoginError(null)
+        api.post("/api/v1/approver/login", data).then((response) => {
+            localStorage.setItem("cc-app-token", response.data.token);
+            navigate("/dashboard");
+
+        }).catch((error) => {
+            setLoginError(error.response?.data?.message || "Login failed")
+        });
+
     }
 
     return (
@@ -58,6 +67,9 @@ function Login() {
                 >
                     Login
                 </button>
+                {loginError && (
+                    <p className="text-red-500 text-sm">{loginError}</p>
+                )}
             </form>
         </div>
     )
