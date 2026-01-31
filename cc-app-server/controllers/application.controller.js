@@ -111,9 +111,6 @@ exports.getAllApplications = async (req, res) => {
     }
 };
 
-// @desc    Update application status
-// @route   PATCH /api/v1/application/:applicationNumber/status
-// @access  Private (Approver only)
 exports.updateApplicationStatus = async (req, res) => {
     try {
         const { applicationNumber } = req.params;

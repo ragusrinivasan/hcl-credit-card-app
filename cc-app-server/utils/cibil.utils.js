@@ -1,15 +1,3 @@
-/**
- * CIBIL Score Generator Utility
- * Generates a simulated CIBIL score based on applicant details
- * In production, this would connect to actual CIBIL/credit bureau APIs
- */
-
-/**
- * Generate CIBIL score based on applicant details
- * Score range: 300 - 900 (as per CIBIL standards)
- * @param {Object} applicant - Applicant details
- * @returns {number} - Generated CIBIL score
- */
 const generateCibilScore = (applicant) => {
     let baseScore = 550; // Start with a base score
 
