@@ -26,8 +26,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', applicationRouter);
-app.use('/approvers', approverRouter);
+const prefix = '/api/v1';
+
+app.use(`/${prefix}`, applicationRouter);
+app.use(`/${prefix}/approver`, approverRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
