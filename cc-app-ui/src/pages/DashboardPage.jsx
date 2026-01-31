@@ -29,6 +29,9 @@ const DashboardPage = () => {
 
   const navigate = useNavigate();
 
+  // Track if stats have been fetched
+  const [statsFetched, setStatsFetched] = useState(false);
+
   // Fetch all applications for stats (without filters)
   const fetchAllApplicationsForStats = useCallback(async (token) => {
     try {
@@ -39,6 +42,7 @@ const DashboardPage = () => {
       });
       if (response.data.success) {
         setAllApplications(response.data.data);
+        setStatsFetched(true);
       }
     } catch (err) {
       console.error("Error fetching stats:", err);
@@ -84,7 +88,7 @@ const DashboardPage = () => {
         setTotalCount(response.data.totalCount);
         setTotalPages(response.data.totalPages);
         // Also fetch all applications for stats on initial load
-        if (allApplications.length === 0) {
+        if (!statsFetched) {
           await fetchAllApplicationsForStats(token);
         }
       }
@@ -105,7 +109,7 @@ const DashboardPage = () => {
     currentPage,
     limit,
     navigate,
-    allApplications.length,
+    statsFetched,
     fetchAllApplicationsForStats,
   ]);
 
