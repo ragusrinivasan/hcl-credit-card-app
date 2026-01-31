@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Routes, Route } from "react-router-dom";
 import HomePage from './pages/HomePage';
+import Tracking from './pages/Tracking';
 import ProtectedRoute from './utils/ProtectedRoute';
 
 
@@ -15,8 +16,8 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/protected" element={<HomePage />} />
         </Route>
+        <Route path="/tracking" element={<Tracking />} />
       </Routes>
-
     </>
   )
 }
