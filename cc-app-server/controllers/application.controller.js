@@ -54,3 +54,67 @@ exports.getAllApplications = async (req, res) => {
         });
     }
 };
+
+// @desc    Update application status
+// @route   PATCH /api/v1/application/:applicationNumber/status
+// @access  Private (Approver only)
+exports.updateApplicationStatus = async (req, res) => {
+    try {
+        const { applicationNumber } = req.params;
+        const { status, rejectionReason } = req.body;
+
+        const validStatuses = ['SUBMITTED', 'CHECK_IN_PROGRESS', 'APPROVED', 'REJECTED', 'DISPATCHED'];
+        if (!validStatuses.includes(status)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid status value',
+            });
+        }
+
+        if (status === 'REJECTED' && !rejectionReason) {
+            return res.status(400).json({
+                success: false,
+                message: 'Rejection reason is required when rejecting an application',
+            });
+        }
+
+        const application = await Application.findOne({ applicationNumber });
+
+        if (!application) {
+            return res.status(404).json({
+                success: false,
+                message: 'Application not found',
+            });
+        }
+
+        // Update status
+        application.status = status;
+        application.rejectionReason = status === 'REJECTED' ? rejectionReason : null;
+
+        // Add to status history
+        application.statusHistory.push({
+            status,
+            changedAt: new Date(),
+            changedBy: 'APPROVER',
+            reason: status === 'REJECTED' ? rejectionReason : `Status changed to ${status}`,
+        });
+
+        await application.save();
+
+        res.status(200).json({
+            success: true,
+            message: 'Application status updated successfully',
+            data: {
+                applicationNumber: application.applicationNumber,
+                status: application.status,
+                rejectionReason: application.rejectionReason,
+            },
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: 'Error updating application status',
+            error: error.message,
+        });
+    }
+};
