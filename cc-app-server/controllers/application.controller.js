@@ -54,3 +54,27 @@ exports.getAllApplications = async (req, res) => {
         });
     }
 };
+
+
+exports.getApplicationById = async (req, res) => {
+    try {
+        const applicationId = req.params.id;
+        const application = await Application.findById(applicationId)
+            .select('-__v')
+            .lean();    
+        if (!application) {
+            return res.status(404).json({
+                success: false,
+                message: 'Application not found',
+            });
+        }
+        res.status(200).json({
+            success: true,
+            data: application,
+        });
+    }catch(error){
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching application',})
+    }
+};
