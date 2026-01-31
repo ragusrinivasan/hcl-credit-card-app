@@ -3,12 +3,16 @@ import CustomerDetailsTab from './CustomerDetailsTab';
 import AddressDetailsTab from './AddressDetailsTab';
 import SuccessPopup from './SuccessPopup';
 import { Button } from '../../components/common';
+import {
+  customerDetailsSchema,
+  addressDetailsSchema,
+  useFormValidation
+} from '../../components/common/validation';
 
 const ApplyCardPage = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-  const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -33,15 +37,23 @@ const ApplyCardPage = () => {
 
   const [submittedData, setSubmittedData] = useState(null);
 
+  // Use Zod validation hooks for each tab
+  const customerValidation = useFormValidation(customerDetailsSchema);
+  const addressValidation = useFormValidation(addressDetailsSchema);
+
   const tabs = [
     { id: 0, label: 'Customer Details', icon: 'user' },
     { id: 1, label: 'Address Details', icon: 'location' },
   ];
 
   const handleNext = () => {
-    // Basic validation for Tab 1 before moving to Tab 2
-    // Full validation will be implemented in FormValidation.js later
-    setActiveTab(1);
+    // Validate Tab 1 using Zod before moving to Tab 2
+    const { isValid, errors } = customerValidation.validate(formData);
+    console.log('Validation Result:', { isValid, errors, formData });
+
+    if (isValid) {
+      setActiveTab(1);
+    }
   };
 
   const handleBack = () => {
@@ -49,23 +61,21 @@ const ApplyCardPage = () => {
   };
 
   const handleSubmit = async () => {
-    // Basic validation before submit
-    // Full validation will be implemented in FormValidation.js later
+    // Validate Tab 2 using Zod before submit
+    const { isValid } = addressValidation.validate(formData);
 
-    if (!formData.addressConfirmed) {
-      setErrors({ addressConfirmed: 'Please confirm the dispatch address' });
+    if (!isValid) {
       return;
     }
 
     setIsSubmitting(true);
-    setErrors({});
 
     try {
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Generate application ID
-      const applicationId = `LSB-${new Date().getFullYear()}-${Math.random()
+      const applicationId = `LBG-${new Date().getFullYear()}-${Math.random()
         .toString(36)
         .substring(2, 7)
         .toUpperCase()}`;
@@ -108,6 +118,8 @@ const ApplyCardPage = () => {
       addressConfirmed: false,
     });
     setActiveTab(0);
+    customerValidation.clearErrors();
+    addressValidation.clearErrors();
   };
 
   const renderTabIcon = (icon, isActive) => {
@@ -144,6 +156,9 @@ const ApplyCardPage = () => {
     );
   };
 
+  // Get current errors based on active tab
+  const currentErrors = activeTab === 0 ? customerValidation.errors : addressValidation.errors;
+
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
       <div className="max-w-3xl mx-auto">
@@ -151,7 +166,7 @@ const ApplyCardPage = () => {
         <div className="bg-gradient-to-r from-blue-700 to-blue-600 rounded-t-xl p-6 text-white">
           <h1 className="text-2xl font-bold">Credit Card Application</h1>
           <p className="text-blue-100 mt-1">
-            Fill in your details to apply for LSB Credit Card
+            Fill in your details to apply for LBG Credit Card
           </p>
         </div>
 
@@ -161,7 +176,15 @@ const ApplyCardPage = () => {
             {tabs.map((tab) => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => {
+                  if (tab.id === 1) {
+                    // Validate Tab 1 before switching to Tab 2
+                    const { isValid } = customerValidation.validate(formData);
+                    if (isValid) setActiveTab(tab.id);
+                  } else {
+                    setActiveTab(tab.id);
+                  }
+                }}
                 className={`flex-1 flex items-center justify-center gap-2 py-4 px-4 text-sm font-medium border-b-2 transition-colors ${
                   activeTab === tab.id
                     ? 'border-blue-600 text-blue-600 bg-blue-50'
@@ -199,7 +222,7 @@ const ApplyCardPage = () => {
             <CustomerDetailsTab
               formData={formData}
               setFormData={setFormData}
-              errors={errors}
+              errors={currentErrors}
             />
           )}
 
@@ -207,7 +230,7 @@ const ApplyCardPage = () => {
             <AddressDetailsTab
               formData={formData}
               setFormData={setFormData}
-              errors={errors}
+              errors={currentErrors}
             />
           )}
 
@@ -262,19 +285,6 @@ const ApplyCardPage = () => {
               </>
             )}
           </div>
-        </div>
-
-        {/* Credit Limit Info */}
-        <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <h4 className="text-sm font-semibold text-blue-800 mb-2">
-            Credit Limit Criteria
-          </h4>
-          <ul className="text-xs text-blue-700 space-y-1">
-            <li>• Annual Income up to INR 2,00,000 - Credit Limit: INR 50,000</li>
-            <li>• Annual Income INR 2,00,001 - 3,00,000 - Credit Limit: INR 75,000</li>
-            <li>• Annual Income INR 3,00,001 - 5,00,000 - Credit Limit: INR 1,00,000</li>
-            <li>• Annual Income above INR 5,00,000 - Credit Limit: Subject to evaluation</li>
-          </ul>
         </div>
       </div>
 

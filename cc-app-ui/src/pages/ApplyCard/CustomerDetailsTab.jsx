@@ -139,7 +139,7 @@ const CustomerDetailsTab = ({ formData, setFormData, errors }) => {
             onChange={handleChange}
             placeholder="Enter company name"
             required
-            error={errors?.company}
+            error={errors?.['profession.company']}
           />
         )}
 

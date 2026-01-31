@@ -54,7 +54,7 @@ const SuccessPopup = ({ isOpen, onClose, applicationData }) => {
             <div className="flex justify-between">
               <span className="text-sm text-gray-500">Application ID:</span>
               <span className="text-sm font-semibold text-blue-700">
-                {applicationData?.applicationId || 'LSB-2024-XXXXX'}
+                {applicationData?.applicationId || 'LBG-2024-XXXXX'}
               </span>
             </div>
             <div className="flex justify-between">

@@ -95,7 +95,7 @@ const AddressDetailsTab = ({ formData, setFormData, errors }) => {
             onChange={handleChange}
             placeholder="House/Flat No., Building Name"
             required
-            error={errors?.line1}
+            error={errors?.['address.line1']}
           />
         </div>
 
@@ -108,7 +108,7 @@ const AddressDetailsTab = ({ formData, setFormData, errors }) => {
             value={formData.address.line2}
             onChange={handleChange}
             placeholder="Street, Locality, Landmark"
-            error={errors?.line2}
+            error={errors?.['address.line2']}
           />
         </div>
 
@@ -121,7 +121,7 @@ const AddressDetailsTab = ({ formData, setFormData, errors }) => {
           onChange={handleChange}
           placeholder="Enter city"
           required
-          error={errors?.city}
+          error={errors?.['address.city']}
         />
 
         {/* State */}
@@ -133,7 +133,7 @@ const AddressDetailsTab = ({ formData, setFormData, errors }) => {
           options={stateOptions}
           placeholder="Select state"
           required
-          error={errors?.state}
+          error={errors?.['address.state']}
         />
 
         {/* PIN Code */}
@@ -146,7 +146,7 @@ const AddressDetailsTab = ({ formData, setFormData, errors }) => {
           placeholder="6 digit PIN code"
           required
           maxLength={6}
-          error={errors?.pin}
+          error={errors?.['address.pin']}
         />
       </div>
 
@@ -160,7 +160,7 @@ const AddressDetailsTab = ({ formData, setFormData, errors }) => {
             className="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
           />
           <span className="ml-3 text-sm text-gray-700">
-            I confirm that the above address is correct and I authorize LSB Bank to dispatch my credit card to this address.
+            I confirm that the above address is correct and I authorize LBG Bank to dispatch my credit card to this address.
             <span className="text-red-500 ml-1">*</span>
           </span>
         </label>

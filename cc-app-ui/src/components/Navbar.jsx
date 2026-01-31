@@ -14,11 +14,11 @@ const Navbar = () => {
           {/* Logo - Left Side */}
           <Link to="/" className="flex items-center">
             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center mr-3">
-              <span className="text-blue-800 font-bold text-lg">LSB</span>
+              <span className="text-blue-800 font-bold text-lg">LBG</span>
             </div>
             <div>
               <h1 className="text-white text-xl font-bold tracking-wide">
-                LSB Bank
+                LBG Bank
               </h1>
               <p className="text-blue-200 text-xs hidden sm:block">
                 Trusted Financial Partner
