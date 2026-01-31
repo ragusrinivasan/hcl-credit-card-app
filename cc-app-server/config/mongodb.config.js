@@ -10,17 +10,15 @@ const connectDB = async () => {
       socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
     };
 
-    // MongoDB connection URI
-    // Replace with your actual MongoDB URI
     const mongoURI = process.env.MONGODB_CONNECTION_STRING || 'mongodb://localhost:27017/your_database_name';
 
-    // Connect to MongoDB
+   
     const conn = await mongoose.connect(mongoURI, options);
 
     console.log(`MongoDB Connected: ${conn.connection.host}`);
     console.log(`Database Name: ${conn.connection.name}`);
 
-    // Connection event handlers
+    
     mongoose.connection.on('connected', () => {
       console.log('Mongoose connected to MongoDB');
     });
@@ -33,7 +31,6 @@ const connectDB = async () => {
       console.log('Mongoose disconnected from MongoDB');
     });
 
-    // Graceful shutdown
     process.on('SIGINT', async () => {
       await mongoose.connection.close();
       console.log('Mongoose connection closed due to application termination');
