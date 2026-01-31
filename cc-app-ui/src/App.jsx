@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from './pages/HomePage';
 import ProtectedRoute from './utils/ProtectedRoute';
 import DashboardPage from './pages/DashboardPage';
-import ApproverLogin from './pages/ApproverLogin';
+import LoginPage from './pages/LoginPage';
 
 
 function App() {
@@ -11,9 +11,8 @@ function App() {
     <>
       <Routes>
       {/* Public Routes */}
-        {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/approver/login" element={<ApproverLogin />} />
+        <Route path="/approver/login" element={<LoginPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/protected" element={<HomePage />} />
           <Route path="/approver/dashboard" element={<DashboardPage />} />
