@@ -1,9 +1,7 @@
 const Application = require('../models/application.model');
 
-// @desc    Get all applications
-// @route   GET /applications
-// @access  Public
-const getAllApplications = async (req, res) => {
+
+exports.getAllApplications = async (req, res) => {
     try {
         const applications = await Application.find().sort({ createdAt: -1 });
         res.status(200).json({
@@ -18,8 +16,4 @@ const getAllApplications = async (req, res) => {
             error: error.message,
         });
     }
-};
-
-module.exports = {
-    getAllApplications,
 };
