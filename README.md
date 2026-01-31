@@ -220,8 +220,20 @@ Admin
 4. Raguraam
  - Approver Dashboard FE and BE
  - Search and Filter FE and BE
+ - function to get Credit Score
  - backend boiler-plate
 
+creditScore calulation
+
+MIN_SCORE = 650
+MAX_SCORE = 900
+
+numericPart = PAN card number
+
+normalized = numericPart % 100
+range = MAX_SCORE - MIN_SCORE
+
+score = 650 + (normalized / 100) * range
 
 # middlewares
 
