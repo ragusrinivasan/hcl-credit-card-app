@@ -38,7 +38,16 @@ const Navbar = () => {
             >
               Home
             </Link>
-            
+            <Link
+              to="/apply"
+              className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                isActive('/apply')
+                  ? 'bg-white text-blue-800'
+                  : 'bg-blue-700 text-white hover:bg-white hover:text-blue-800'
+              }`}
+            >
+              Apply Credit Card
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
