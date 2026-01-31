@@ -2,7 +2,7 @@ import React from "react"
 import { render, screen, fireEvent, waitFor } from "@testing-library/react"
 import "@testing-library/jest-dom"
 import api from "../api/axios"
-import Login from "../pages/ApproverLogin.jsx"
+import Login from "../pages/ApproverLogin"
 // mock navigate
 const mockNavigate = jest.fn()
 

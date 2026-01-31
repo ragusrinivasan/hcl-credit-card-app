@@ -9,7 +9,8 @@ export const loginSchema = z.object({
     password: z.string().min(6, "Minimum 6 characters"),
 })
 
-function Login() {
+
+function Login() {``
     const navigate = useNavigate();
     const [loginError, setLoginError] = React.useState(null)
     const {

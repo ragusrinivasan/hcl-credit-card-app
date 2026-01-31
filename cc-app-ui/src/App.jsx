@@ -1,7 +1,7 @@
-import { useState } from 'react'
 import { Routes, Route } from "react-router-dom";
 import HomePage from './pages/HomePage';
 import ProtectedRoute from './utils/ProtectedRoute';
+import DashboardPage from './pages/DashboardPage';
 import ApproverLogin from './pages/ApproverLogin';
 
 
@@ -16,7 +16,7 @@ function App() {
         <Route path="/approver/login" element={<ApproverLogin />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/protected" element={<HomePage />} />
-          <Route path="/approver/dashboard" element={<HomePage />} />
+          <Route path="/approver/dashboard" element={<DashboardPage />} />
         </Route>
       </Routes>
 
