@@ -34,7 +34,7 @@ Design and implement a Credit Card Application System where:
 ### Backend
 - Node.js
 - Express.js
-- JWT (Admin authentication)
+- JWT (Approver authentication)
 
 ### Database
 - MongoDB (NoSQL)
