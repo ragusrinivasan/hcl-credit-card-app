@@ -1,5 +1,5 @@
 const approverModel = require("../models/approver.model");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 exports.loginApprover = async (req,res) =>{
     try{
