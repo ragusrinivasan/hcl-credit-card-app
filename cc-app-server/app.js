@@ -28,8 +28,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const prefix = '/api/v1';
 
-app.use(`/${prefix}`, applicationRouter);
-app.use(`/${prefix}/approver`, approverRouter);
+app.use(`${prefix}`, applicationRouter);
+app.use(`${prefix}/approver`, approverRouter);
+app.use(`${prefix}/application`, applicationRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
