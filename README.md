@@ -126,21 +126,21 @@ Admin
       {
         "status": "Enum",
         "changedAt": "Date",
-        "changedBy": "ADMIN",
+        "changedBy": "APPROVER",
         "reason": "String"
       }
     ]
   }
 }
 
-# Admins
+# Approvers
 
 {
- "Admin":{
+ "Approvers":{
     "adminId": "String (unique)",
     "name": "String",
     "email": "String (unique)",
-    "role": "ADMIN",
+    "role": "APPROVER",
     "isActive": "Boolean",
     "createdAt": "Date",
     "updatedAt": "Date"
