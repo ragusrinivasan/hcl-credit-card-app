@@ -247,4 +247,18 @@ Admin
 ### backend
 1. rate limiting 
 2. indexing in db
+
+# Security
+1. Captcha
+2. Authentication
+3. Authorization
+4. Route guards
+5. hashing the passwords
+6. encrypt API responses
+
+# Best practices
+1. Resuable components
+2. Uniform theme
+   
+   
    
