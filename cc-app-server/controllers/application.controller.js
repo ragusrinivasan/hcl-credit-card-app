@@ -77,7 +77,6 @@ exports.updateApplicationStatus = async (req, res) => {
                 message: 'Rejection reason is required when rejecting an application',
             });
         }
-
         const application = await Application.findOne({ applicationNumber });
 
         if (!application) {
@@ -123,10 +122,10 @@ exports.updateApplicationStatus = async (req, res) => {
 
 exports.getApplicationById = async (req, res) => {
     try {
+        console.log(req.params.id)
         const applicationId = req.params.id;
-        const application = await Application.findById(applicationId)
-            .select('-__v')
-            .lean();    
+        const application = await Application.findOne({applicationNumber :applicationId})
+               
         if (!application) {
             return res.status(404).json({
                 success: false,

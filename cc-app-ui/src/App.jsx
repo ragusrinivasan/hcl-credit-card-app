@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage';
 import ProtectedRoute from './utils/ProtectedRoute';
 import DashboardPage from './pages/DashboardPage';
 import ApproverLogin from './pages/ApproverLogin';
+import ApplicationDetail from "./pages/ApplicationDetail";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/protected" element={<HomePage />} />
           <Route path="/approver/dashboard" element={<DashboardPage />} />
+          <Route path="/approver/application/:applicationNumber" element={<ApplicationDetail />} />
         </Route>
       </Routes>
 

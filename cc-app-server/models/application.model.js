@@ -40,7 +40,7 @@ const applicationSchema = new Schema(
         status: { type: String, enum: ['SUBMITTED', 'CHECK_IN_PROGRESS', 'APPROVED', 'REJECTED', 'DISPATCHED'], default: 'SUBMITTED' },
         creditScore: { type: Number, required: true },
         creditLimit: { type: Number, required: true },
-        rejectionReason: { type: String, enum: ['AGE_NOT_ELIGIBLE', 'DUPLICATE_APPLICATION', 'LOW_CREDIT_SCORE', 'ADMIN_REJECTION'], default: null },
+        rejectionReason: { type: String,  default: null },
         createdAt: { type: Date, default: Date.now },
         updatedAt: { type: Date, default: Date.now },
         applicant: { type: applicantSchema, required: true },
