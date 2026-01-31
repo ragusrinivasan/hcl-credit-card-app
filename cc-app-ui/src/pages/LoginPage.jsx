@@ -35,7 +35,7 @@ function Login() {``
     }
 
     return (
-        <div className='min-h-screen bg-blue-600 flex items-center justify-center'>
+        <div className='min-h-screen bg-gray-100 flex items-center justify-center'>
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className='p-4 bg-white rounded-lg w-full max-w-sm'
