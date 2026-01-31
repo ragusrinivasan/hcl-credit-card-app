@@ -9,7 +9,7 @@ A full-stack Credit Card Application System built using the **MERN stack**, desi
 
 ---
 
-## 🧠 Problem Statement
+## Problem Statement
 
 Design and implement a Credit Card Application System where:
 - Users can apply for a credit card
@@ -21,7 +21,7 @@ Design and implement a Credit Card Application System where:
 
 ---
 
-## 🧩 Tech Stack
+## Tech Stack
 
 ### Frontend
 - React.JS
