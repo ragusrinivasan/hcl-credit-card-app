@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Routes, Route } from "react-router-dom";
 import HomePage from './pages/HomePage';
 import ProtectedRoute from './utils/ProtectedRoute';
-import Login from './components/approver/Login';
 import ApproverLogin from './pages/ApproverLogin';
 
 
