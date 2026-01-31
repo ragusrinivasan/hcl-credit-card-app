@@ -117,7 +117,7 @@ exports.getAllApplications = async (req, res) => {
 exports.updateApplicationStatus = async (req, res) => {
     try {
         const { applicationNumber } = req.params;
-        const { status, rejectionReason } = req.body;
+        const { status, rejectionReason, creditLimit } = req.body;
 
         const validStatuses = ['SUBMITTED', 'CHECK_IN_PROGRESS', 'APPROVED', 'REJECTED', 'DISPATCHED'];
         if (!validStatuses.includes(status)) {
@@ -133,7 +133,6 @@ exports.updateApplicationStatus = async (req, res) => {
                 message: 'Rejection reason is required when rejecting an application',
             });
         }
-
         const application = await Application.findOne({ applicationNumber });
 
         if (!application) {
@@ -146,7 +145,9 @@ exports.updateApplicationStatus = async (req, res) => {
         // Update status
         application.status = status;
         application.rejectionReason = status === 'REJECTED' ? rejectionReason : null;
-
+        if(creditLimit){
+            application.creditLimit = creditLimit;
+        }
         // Add to status history
         application.statusHistory.push({
             status,
@@ -172,5 +173,30 @@ exports.updateApplicationStatus = async (req, res) => {
             message: 'Error updating application status',
             error: error.message,
         });
+    }
+};
+
+
+
+exports.getApplicationById = async (req, res) => {
+    try {
+        console.log(req.params.id)
+        const applicationId = req.params.id;
+        const application = await Application.findOne({applicationNumber :applicationId})
+               
+        if (!application) {
+            return res.status(404).json({
+                success: false,
+                message: 'Application not found',
+            });
+        }
+        res.status(200).json({
+            success: true,
+            data: application,
+        });
+    }catch(error){
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching application',})
     }
 };

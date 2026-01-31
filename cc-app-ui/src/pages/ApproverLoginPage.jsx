@@ -10,7 +10,7 @@ export const loginSchema = z.object({
 })
 
 
-function Login() {``
+function ApproverLoginPage() {
     const navigate = useNavigate();
     const [loginError, setLoginError] = React.useState(null)
     const {
@@ -74,4 +74,4 @@ function Login() {``
     )
 }
 
-export default Login
+export default ApproverLoginPage

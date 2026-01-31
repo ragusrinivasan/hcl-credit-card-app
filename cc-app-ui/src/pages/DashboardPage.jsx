@@ -145,6 +145,7 @@ const DashboardPage = () => {
   const handleActionClick = (application) => {
     console.log("Action clicked for application:", application);
     setSelectedApplication(application);
+    navigate(`/approver/application/${application.applicationNumber}`);
   };
 
   if (loading && applications.length === 0) return <Loader />;

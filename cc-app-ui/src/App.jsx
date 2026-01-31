@@ -2,7 +2,8 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from './pages/HomePage';
 import ProtectedRoute from './utils/ProtectedRoute';
 import DashboardPage from './pages/DashboardPage';
-import LoginPage from './pages/LoginPage';
+import ApproverLoginPage from "./pages/ApproverLoginPage";
+import ApplicationDetailPage from "./pages/ApplicationDetailPage";
 
 
 function App() {
@@ -12,10 +13,11 @@ function App() {
       <Routes>
       {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
-        <Route path="/approver/login" element={<LoginPage />} />
+        <Route path="/approver/login" element={<ApproverLoginPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/protected" element={<HomePage />} />
           <Route path="/approver/dashboard" element={<DashboardPage />} />
+          <Route path="/approver/application/:applicationNumber" element={<ApplicationDetailPage />} />
         </Route>
       </Routes>
 
