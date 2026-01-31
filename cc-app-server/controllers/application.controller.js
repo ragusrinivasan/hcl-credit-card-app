@@ -361,34 +361,3 @@ exports.submitApplication = async (req, res) => {
     });
   }
 };
-
-// Get application by ID
-// exports.getApplicationById = async (req, res) => {
-//   try {
-//     const { applicationId } = req.params;
-
-//     const application = await Application.findOne({ applicationNumber: applicationId });
-
-//     if (!application) {
-//       return res.status(404).json({
-//         success: false,
-//         message: 'Application not found'
-//       });
-//     }
-
-//     res.status(200).json({
-//       success: true,
-//       data: application
-//     });
-
-//   } catch (error) {
-//     console.error('Get application error:', error);
-//     res.status(500).json({
-//       success: false,
-//       message: 'Failed to fetch application',
-//       error: error.message
-//     });
-//   }
-// };
-
-
