@@ -94,6 +94,7 @@ applications
 {
   "Application": {
     "applicationNumber": "String (unique)",
+	"cardType": "MASTER | VISA | RUPAY",
     "status": "Enum",
     "creditScore": "Number",
     "creditLimit": "Number",
@@ -124,6 +125,7 @@ applications
 admins
 
 {
+ 
     "adminId": "String (unique)",
     "name": "String",
     "email": "String (unique)",
@@ -131,6 +133,37 @@ admins
     "isActive": "Boolean",
     "createdAt": "Date",
     "updatedAt": "Date"
+}
+
+creditCards 
+
+{
+  "CreditCard": {
+    "cardId": "String (unique)",
+    "applicationNumber": "String (reference)",
+    "cardNumber": "String (masked when returned)",
+    "cardType": "VISA | MASTERCARD | RUPAY",
+    "creditLimit": "Number",
+    "expiryMonth": "Number",
+    "expiryYear": "Number",
+    "cvv": "String (encrypted)",
+    "issuedAt": "Date",
+    "status": "ACTIVE | BLOCKED | IN_ACTIVE",
+    "createdAt": "Date"
+  }
+}
+
+{
+  "CreditCardPIN": {
+    "pinId": "String (unique)",
+    "cardId": "String (reference to CreditCard)",
+    "pinHash": "String (hashed + salted)",
+    "pinStatus": "NOT_SET | ACTIVE | BLOCKED",
+	"pinType": "DEFAULT | USER_DEFINED",
+    "attemptsLeft": "Number",
+    "createdAt": "Date",
+    "updatedAt": "Date"
+  }
 }
 
 applicationStatus
@@ -161,6 +194,7 @@ User stories
  - Confirmation Screen FE and BE
 2. Boopathiraja
  - Application tracking FE and BE
+ - Credit Card Activation FE and BE
 3. Yaseen
  - Approver Action FE and BE
  - Approver Login FE and BE
