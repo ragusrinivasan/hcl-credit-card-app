@@ -26,7 +26,7 @@ function Login() {
         setLoginError(null)
         api.post("/api/v1/approver/login", data).then((response) => {
             localStorage.setItem("cc-app-token", response.data.token);
-            navigate("/dashboard");
+            navigate("/approver/dashboard");
 
         }).catch((error) => {
             setLoginError(error.response?.data?.message || "Login failed")
