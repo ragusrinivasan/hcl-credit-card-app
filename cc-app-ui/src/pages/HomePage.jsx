@@ -1,9 +1,15 @@
-import React from 'react'
+import { Link } from 'react-router-dom';
+import { Button } from '../components/common';
 
 function HomePage() {
   return (
-    <div className="bg-blue-500 text-white p-4">HomePage</div>
-  )
+    <div className="min-h-screen bg-gray-100">
+     
+
+     {"Home page"}
+     
+    </div>
+  );
 }
 
-export default HomePage
+export default HomePage;
