@@ -108,7 +108,14 @@ Admin
       "pan": "String",
       "annualIncome": "Number",
       "email": "String",
-      "phone": "String"
+      "phone": "String",
+	  "address": {
+	  	 "line1":"String",
+		 "line2":"String",
+		 "city":"String",
+		 "state":"String",
+		 "pin": "Number"
+	  	}
     },
 
     "statusHistory": [
@@ -129,7 +136,7 @@ Admin
     "adminId": "String (unique)",
     "name": "String",
     "email": "String (unique)",
-    "role": "APPROVER",
+    "role": "ADMIN",
     "isActive": "Boolean",
     "createdAt": "Date",
     "updatedAt": "Date"
@@ -210,6 +217,30 @@ Admin
  - Approver Dashboard FE and BE
  - Search and Filter FE and BE
  - backend boiler-plate
-   
-   
 
+
+# middlewares
+
+- authentication
+- error handler
+- cors
+- helmet
+- body parser
+- logger
+   
+   
+# Performance Optimization
+
+### frontend
+1. virutalization
+2. pagination
+3. debouncing
+4. React compiler (memoization)
+5. lazy loading
+6. SEO friendly
+7. React query
+
+### backend
+1. rate limiting 
+2. indexing in db
+   
