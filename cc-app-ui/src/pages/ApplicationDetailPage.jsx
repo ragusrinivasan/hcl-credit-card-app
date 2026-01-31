@@ -27,7 +27,7 @@ function ApplicationDetailPage() {
       if (!token) return navigate("/approver/login");
 
       const res = await api.get(
-        `/api/v1/application/fetch/${applicationNumber}`,
+        `/api/v1/application/fetch-ind/${applicationNumber}`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 

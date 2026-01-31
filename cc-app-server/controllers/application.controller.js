@@ -204,6 +204,28 @@ exports.getApplicationById = async (req, res) => {
             message: 'Error fetching application',})
     }
 };
+exports.getApplicationByIdUnprotected = async (req, res) => {
+    try {
+        console.log(req.params.id)
+        const applicationId = req.params.id;
+        const application = await Application.findOne({applicationNumber :applicationId})
+               
+        if (!application) {
+            return res.status(404).json({
+                success: false,
+                message: 'Application not found',
+            });
+        }
+        res.status(200).json({
+            success: true,
+            data: application,
+        });
+    }catch(error){
+        res.status(500).json({
+            success: false,
+            message: 'Error fetching application',})
+    }
+};
 
 
 // Submit new application
@@ -341,32 +363,32 @@ exports.submitApplication = async (req, res) => {
 };
 
 // Get application by ID
-exports.getApplicationById = async (req, res) => {
-  try {
-    const { applicationId } = req.params;
+// exports.getApplicationById = async (req, res) => {
+//   try {
+//     const { applicationId } = req.params;
 
-    const application = await Application.findOne({ applicationNumber: applicationId });
+//     const application = await Application.findOne({ applicationNumber: applicationId });
 
-    if (!application) {
-      return res.status(404).json({
-        success: false,
-        message: 'Application not found'
-      });
-    }
+//     if (!application) {
+//       return res.status(404).json({
+//         success: false,
+//         message: 'Application not found'
+//       });
+//     }
 
-    res.status(200).json({
-      success: true,
-      data: application
-    });
+//     res.status(200).json({
+//       success: true,
+//       data: application
+//     });
 
-  } catch (error) {
-    console.error('Get application error:', error);
-    res.status(500).json({
-      success: false,
-      message: 'Failed to fetch application',
-      error: error.message
-    });
-  }
-};
+//   } catch (error) {
+//     console.error('Get application error:', error);
+//     res.status(500).json({
+//       success: false,
+//       message: 'Failed to fetch application',
+//       error: error.message
+//     });
+//   }
+// };
 
 
