@@ -11,4 +11,7 @@ router.get('/fetch', authenticate, applicationController.getAllApplications);
 /* PATCH update application status */
 router.put('/:applicationNumber/status', authenticate, applicationController.updateApplicationStatus);
 
+// GET /application/:id - Get application by ID
+router.get('/application/:id', applicationController.getApplicationById);
+
 module.exports = router;
