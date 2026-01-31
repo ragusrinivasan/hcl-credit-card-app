@@ -2,10 +2,13 @@
 Repository for HCL hackathon credit card application
 
 
-# Credit Card Application System (MERN)
+
+
+# Credit Card Application System (MERN-3)
+
 
 Hackathon Project – 31 Jan 2026  
-A full-stack Credit Card Application System built using the **MERN stack**, designed with real-world banking workflows, auditability, and scalability in mind.
+A full-stack Credit Card Application System built using the **MERN stack**.
 
 ---
 
@@ -148,4 +151,24 @@ rejectionReasons
     "ADMIN_REJECTION"
 }
 
+
+User stories
+
+
+
+1. Nasurullah
+ - Application form FE and BE
+ - Confirmation Screen FE and BE
+2. Boopathiraja
+ - Application tracking FE and BE
+3. Yaseen
+ - Approver Action FE and BE
+ - Approver Login FE and BE
+ - frontend boiler-plate
+4. Raguraam
+ - Approver Dashboard FE and BE
+ - Search and Filter FE and BE
+ - backend boiler-plate
+   
+   
 
