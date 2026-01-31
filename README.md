@@ -84,6 +84,68 @@ Admin
 	•	POST /api/admin/applications/:applicationNumber/approve
 	•	POST /api/admin/applications/:applicationNumber/reject
 
+Schemas
 
+applications
+
+{
+  "Application": {
+    "applicationNumber": "String (unique)",
+    "status": "Enum",
+    "creditScore": "Number",
+    "creditLimit": "Number",
+    "rejectionReason": "String | null",
+    "createdAt": "Date",
+    "updatedAt": "Date",
+
+    "applicant": {
+      "fullName": "String",
+      "dob": "Date",
+      "pan": "String",
+      "annualIncome": "Number",
+      "email": "String",
+      "phone": "String"
+    },
+
+    "statusHistory": [
+      {
+        "status": "Enum",
+        "changedAt": "Date",
+        "changedBy": "ADMIN",
+        "reason": "String"
+      }
+    ]
+  }
+}
+
+admins
+
+{
+    "adminId": "String (unique)",
+    "name": "String",
+    "email": "String (unique)",
+    "role": "APPROVER",
+    "isActive": "Boolean",
+    "createdAt": "Date",
+    "updatedAt": "Date"
+}
+
+applicationStatus
+{
+    "SUBMITTED",
+    "CHECK_IN_PROGRESS",
+    "APPROVED",
+    "REJECTED",
+    "DISPATCHED"
+}
+
+rejectionReasons
+{
+  
+    "AGE_NOT_ELIGIBLE",
+    "DUPLICATE_APPLICATION",
+    "LOW_CREDIT_SCORE",
+    "ADMIN_REJECTION"
+}
 
 
