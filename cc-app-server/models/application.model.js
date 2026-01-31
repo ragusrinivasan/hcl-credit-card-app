@@ -27,7 +27,7 @@ const applicantSchema = new Schema({
 });
 
 const statusHistorySchema = new Schema({
-    status: { type: String, enum: ['PENDING', 'APPROVED', 'REJECTED'], required: true },
+    status: { type: String, enum: ['SUBMITTED', 'CHECK_IN_PROGRESS', 'APPROVED', 'REJECTED', 'DISPATCHED'], required: true },
     changedAt: { type: Date, required: true },
     changedBy: { type: String, enum: ['APPROVER'], required: true },
     reason: { type: String },
@@ -37,10 +37,10 @@ const applicationSchema = new Schema(
     {
         applicationNumber: { type: String, unique: true, required: true },
         cardType: { type: String, enum: ['MASTER', 'VISA', 'RUPAY'], required: true },
-        status: { type: String, enum: ['PENDING', 'APPROVED', 'REJECTED'], required: true },
+        status: { type: String, enum: ['SUBMITTED', 'CHECK_IN_PROGRESS', 'APPROVED', 'REJECTED', 'DISPATCHED'], default: 'SUBMITTED' },
         creditScore: { type: Number, required: true },
         creditLimit: { type: Number, required: true },
-        rejectionReason: { type: String, default: null },
+        rejectionReason: { type: String, enum: ['AGE_NOT_ELIGIBLE', 'DUPLICATE_APPLICATION', 'LOW_CREDIT_SCORE', 'ADMIN_REJECTION'], default: null },
         createdAt: { type: Date, default: Date.now },
         updatedAt: { type: Date, default: Date.now },
         applicant: { type: applicantSchema, required: true },
