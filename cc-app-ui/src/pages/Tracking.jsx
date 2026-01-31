@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import api from '../../api/axios'
 
 const steps = [
   { id: 1, name: "Applied", description: "Your credit card application has been submitted." },
