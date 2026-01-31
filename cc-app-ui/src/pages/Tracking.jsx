@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import api from '../../api/axios'
+import api from '../api/axios'
 
 const steps = [
   { id: 1, name: "Applied", description: "Your credit card application has been submitted." },
@@ -20,6 +20,21 @@ function Tracking() {
       return;
     }
 
+    
+     // setLoginError(null);
+  
+      api.get("http://localhost:3000/api/v1/tracking/fetchstatus", {
+          params: { applicationno: refNo }
+      })
+      .then((response) => {
+         console.log(response);
+      })
+      .catch((error) => {
+          setLoginError(error.response?.data?.message || "Application number Invalid");
+      });
+ 
+
+  
     // Example: dynamically set current step based on refNo
     // For demo, just randomly pick a step
     const step = Math.min(Math.floor(Math.random() * 4) + 1, 4);

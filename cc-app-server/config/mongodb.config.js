@@ -10,7 +10,7 @@ const connectDB = async () => {
       socketTimeoutMS: 45000, // Close sockets after 45s of inactivity
     };
 
-    const mongoURI = process.env.MONGODB_CONNECTION_STRING || 'mongodb://localhost:27017/your_database_name';
+    const mongoURI = process.env.MONGODB_CONNECTION_STRING || 'mongodb://localhost:27017/credit_card_db';
 
    
     const conn = await mongoose.connect(mongoURI, options);

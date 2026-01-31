@@ -1,9 +1,8 @@
 var express = require('express');
 var router = express.Router();
+const applicationController = require('../controllers/application.controller');
+const authenticate = require('../middlewares/authenticate.middleware');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
+/* GET all applications */
+router.get('/fetch', authenticate, applicationController.getAllApplications);
 module.exports = router;

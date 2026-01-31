@@ -17,6 +17,7 @@ function App() {
         <Route path="/approver/login" element={<Login />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/protected" element={<HomePage />} />
+          <Route path="/approver/dashboard" element={<HomePage />} />
         </Route>
         <Route path="/tracking" element={<Tracking />} />
       </Routes>

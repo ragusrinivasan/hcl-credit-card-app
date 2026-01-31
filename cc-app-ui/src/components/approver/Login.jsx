@@ -23,17 +23,18 @@ function Login() {
     })
 
     const onSubmit = (data) => {
-        setLoginError(null)
-        api.post("/api/v1/approver/login", data).then((response) => {
-            localStorage.setItem("cc-app-token", response.data.token);
-            navigate("/dashboard");
-
-        }).catch((error) => {
-            setLoginError(error.response?.data?.message || "Login failed")
-        });
-
-    }
-
+        setLoginError(null);
+    
+        api.get("/api/v1/approver/login", { params: data })
+            .then((response) => {
+                localStorage.setItem("cc-app-token", response.data.token);
+                navigate("/approver/dashboard");
+            })
+            .catch((error) => {
+                setLoginError(error.response?.data?.message || "Login failed");
+            });
+    };
+    
     return (
         <div className='min-h-screen bg-blue-600 flex items-center justify-center'>
             <form

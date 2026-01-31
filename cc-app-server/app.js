@@ -9,6 +9,7 @@ require('dotenv').config();
 var connectDB = require('./config/mongodb.config');
 var applicationRouter = require('./routes/application.route');
 var approverRouter = require('./routes/approver.route');
+var trackingRouter = require('./routes/tracking.route');
 
 var app = express();
 
@@ -30,6 +31,8 @@ const prefix = '/api/v1';
 
 app.use(`${prefix}`, applicationRouter);
 app.use(`${prefix}/approver`, approverRouter);
+app.use(`${prefix}/application`, applicationRouter);
+app.use(`${prefix}/tracking`, trackingRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
