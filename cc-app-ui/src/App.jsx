@@ -4,6 +4,7 @@ import ProtectedRoute from './utils/ProtectedRoute';
 import DashboardPage from './pages/DashboardPage';
 import ApproverLoginPage from "./pages/ApproverLoginPage";
 import ApplicationDetailPage from "./pages/ApplicationDetailPage";
+import TrackApplicationPage from "./pages/TrackApplicationPage";
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <Routes>
       {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
+        <Route path="/track" element={<TrackApplicationPage />} />
         <Route path="/approver/login" element={<ApproverLoginPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/protected" element={<HomePage />} />
