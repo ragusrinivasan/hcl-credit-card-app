@@ -54,7 +54,7 @@ const DashboardPage = () => {
   const filteredApplications =
     filter === "ALL"
       ? applications
-      : applications.filter((app) => app.status === filter);
+      : applications.filter((app) => app.status === filter);``
 
   const handleLogout = () => {
     localStorage.removeItem("token");
