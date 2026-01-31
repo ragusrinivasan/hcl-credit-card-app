@@ -3,9 +3,59 @@ const Application = require('../models/application.model');
 
 exports.getAllApplications = async (req, res) => {
     try {
-        const applications = await Application.find()
+        const { 
+            search, 
+            status, 
+            cardType, 
+            sortBy = 'createdAt', 
+            sortOrder = 'desc',
+            page = 1,
+            limit = 10
+        } = req.query;
+        
+        // Parse pagination params
+        const pageNum = Math.max(1, parseInt(page, 10) || 1);
+        const limitNum = Math.min(100, Math.max(1, parseInt(limit, 10) || 10));
+        const skip = (pageNum - 1) * limitNum;
+        
+        // Build filter query
+        const query = {};
+        
+        // Filter by status
+        if (status && status !== 'ALL') {
+            query.status = status;
+        }
+        
+        // Filter by card type
+        if (cardType && cardType !== 'ALL') {
+            query.cardType = cardType;
+        }
+        
+        // Search across multiple fields
+        if (search && search.trim()) {
+            const searchRegex = new RegExp(search.trim(), 'i');
+            query.$or = [
+                { applicationNumber: searchRegex },
+                { 'applicant.fullName': searchRegex },
+                { 'applicant.email': searchRegex },
+                { 'applicant.phone': searchRegex },
+                { 'applicant.pan': searchRegex },
+            ];
+        }
+        
+        // Build sort object
+        const sortObject = {};
+        sortObject[sortBy] = sortOrder === 'asc' ? 1 : -1;
+
+        // Get total count for pagination
+        const totalCount = await Application.countDocuments(query);
+        const totalPages = Math.ceil(totalCount / limitNum);
+
+        const applications = await Application.find(query)
             .select('-__v')
-            .sort({ createdAt: -1 })
+            .sort(sortObject)
+            .skip(skip)
+            .limit(limitNum)
             .lean();
 
         // Remove _id from nested objects
@@ -44,6 +94,12 @@ exports.getAllApplications = async (req, res) => {
         res.status(200).json({
             success: true,
             count: cleanedApplications.length,
+            totalCount,
+            page: pageNum,
+            limit: limitNum,
+            totalPages,
+            hasNextPage: pageNum < totalPages,
+            hasPrevPage: pageNum > 1,
             data: cleanedApplications,
         });
     } catch (error) {
