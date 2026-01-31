@@ -8,6 +8,7 @@ import {
   addressDetailsSchema,
   useFormValidation
 } from '../../components/common/validation';
+import api from '../../api/axios';
 
 const ApplyCardPage = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -71,24 +72,21 @@ const ApplyCardPage = () => {
     setIsSubmitting(true);
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const response = await api.post('/application', formData);
 
-      // Generate application ID
-      const applicationId = `LBG-${new Date().getFullYear()}-${Math.random()
-        .toString(36)
-        .substring(2, 7)
-        .toUpperCase()}`;
-
-      setSubmittedData({
-        applicationId,
-        fullName: formData.fullName,
-        ...formData,
-      });
-
-      setShowSuccessPopup(true);
+      if (response.data.success) {
+        setSubmittedData({
+          applicationId: response.data.data.applicationId,
+          fullName: response.data.data.fullName,
+          status: response.data.data.status,
+          creditScore: response.data.data.creditScore,
+          creditLimit: response.data.data.creditLimit,
+        });
+        setShowSuccessPopup(true);
+      }
     } catch (error) {
       console.error('Submission error:', error);
+      alert(error.response?.data?.message || 'Failed to submit application');
     } finally {
       setIsSubmitting(false);
     }
