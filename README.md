@@ -75,7 +75,7 @@ Admin
 	•	/admin/dashboard – Application queue
 	•	/admin/applications/:applicationNumber – Detailed review
 
-API Endpoints
+# API Endpoints
 
 Public
 	•	POST /api/applications – Submit application
@@ -87,9 +87,9 @@ Admin
 	•	POST /api/admin/applications/:applicationNumber/approve
 	•	POST /api/admin/applications/:applicationNumber/reject
 
-Schemas
+# Schemas
 
-applications
+# Applications
 
 {
   "Application": {
@@ -122,10 +122,10 @@ applications
   }
 }
 
-admins
+# Admins
 
 {
- 
+ "Admin":{
     "adminId": "String (unique)",
     "name": "String",
     "email": "String (unique)",
@@ -133,9 +133,10 @@ admins
     "isActive": "Boolean",
     "createdAt": "Date",
     "updatedAt": "Date"
+	}
 }
 
-creditCards 
+# Credit Cards 
 
 {
   "CreditCard": {
@@ -153,6 +154,8 @@ creditCards
   }
 }
 
+# Credit Card PIN
+
 {
   "CreditCardPIN": {
     "pinId": "String (unique)",
@@ -166,26 +169,30 @@ creditCards
   }
 }
 
-applicationStatus
+# Application Status
+
 {
+"applicationStatus":{
     "SUBMITTED",
     "CHECK_IN_PROGRESS",
     "APPROVED",
     "REJECTED",
     "DISPATCHED"
+	}
 }
 
-rejectionReasons
+# Rejection Reasons
 {
-  
+  "rejectionReasons":{
     "AGE_NOT_ELIGIBLE",
     "DUPLICATE_APPLICATION",
     "LOW_CREDIT_SCORE",
     "ADMIN_REJECTION"
+	}
 }
 
 
-User stories
+# User Stories
 
 
 
