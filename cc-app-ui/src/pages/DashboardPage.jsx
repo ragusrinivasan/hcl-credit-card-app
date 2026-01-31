@@ -62,47 +62,11 @@ const DashboardPage = () => {
   };
 
   const handleActionClick = (application) => {
+    console.log("Action clicked for application:", application);
     setSelectedApplication(application);
   };
 
-  const handleStatusUpdate = async (
-    applicationNumber,
-    newStatus,
-    rejectionReason,
-  ) => {
-    try {
-      const token = localStorage.getItem("cc-app-token");
-      await api.patch(
-        `/api/v1/application/${applicationNumber}/status`,
-        {
-          status: newStatus,
-          rejectionReason: newStatus === "REJECTED" ? rejectionReason : null,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      // Update local state
-      setApplications((prev) =>
-        prev.map((app) =>
-          app.applicationNumber === applicationNumber
-            ? {
-                ...app,
-                status: newStatus,
-                rejectionReason:
-                  newStatus === "REJECTED" ? rejectionReason : null,
-              }
-            : app,
-        ),
-      );
-    } catch (err) {
-      console.error("Failed to update status:", err);
-      throw err;
-    }
-  };
+  
 
   if (loading) return <Loader />;
   if (error) return <ErrorMessage message={error} />;

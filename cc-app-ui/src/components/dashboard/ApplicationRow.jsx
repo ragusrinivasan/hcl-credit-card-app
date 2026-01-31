@@ -20,36 +20,36 @@ const ApplicationRow = ({ application, onActionClick }) => {
 
   return (
     <tr className="hover:bg-gray-50">
-      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
+      <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
         {application.applicationNumber}
       </td>
-      <td className="px-6 py-4 whitespace-nowrap">
-        <div className="text-sm font-medium text-gray-900">
+      <td className="px-4 py-4 whitespace-nowrap">
+        <div className="text-sm font-medium text-gray-900 truncate max-w-[180px]">
           {application.applicant.fullName}
         </div>
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-gray-500 truncate max-w-[180px]">
           {application.applicant.email}
         </div>
       </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
         {getCardTypeIcon(application.cardType)} {application.cardType}
       </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
         {application.creditScore}
       </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">
         ₹{application.creditLimit.toLocaleString("en-IN")}
       </td>
-      <td className="px-6 py-4 whitespace-nowrap">
+      <td className="px-4 py-4 whitespace-nowrap">
         <StatusBadge status={application.status} />
       </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+      <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
         {formatDate(application.createdAt)}
       </td>
-      <td className="px-6 py-4 whitespace-nowrap text-sm">
+      <td className="px-4 py-4 whitespace-nowrap text-center">
         <button
           onClick={() => onActionClick(application)}
-          className="px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition"
+          className="inline-flex items-center px-3 py-1.5 bg-blue-600 text-white text-xs font-medium rounded-md hover:bg-blue-700 transition shadow-sm"
         >
           Update Status
         </button>
