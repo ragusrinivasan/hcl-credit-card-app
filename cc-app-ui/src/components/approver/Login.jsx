@@ -2,6 +2,7 @@ import React from 'react'
 import { z } from "zod"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import api from '../../api/axios'
 
 export const loginSchema = z.object({
     email: z.string().email("Invalid email"),
@@ -9,7 +10,6 @@ export const loginSchema = z.object({
 })
 
 function Login() {
-
     const {
         register,
         handleSubmit,
@@ -19,8 +19,10 @@ function Login() {
 
     })
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         console.log("FORM DATA:", data) // <-- you will get email here
+        const res = await api.post("/approver/login", data)
+        console.log("API Response:", res.data)
     }
 
     return (
