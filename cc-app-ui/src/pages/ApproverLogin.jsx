@@ -10,7 +10,7 @@ export const loginSchema = z.object({
 })
 
 
-function Login() {
+function Login() {``
     const navigate = useNavigate();
     const [loginError, setLoginError] = React.useState(null)
     const {

@@ -1,6 +1,6 @@
 import StatusBadge from "../common/StatusBadge";
 
-const ApplicationRow = ({ application }) => {
+const ApplicationRow = ({ application, onActionClick }) => {
   const getCardTypeIcon = (cardType) => {
     const icons = {
       VISA: "💳",
@@ -19,7 +19,7 @@ const ApplicationRow = ({ application }) => {
   };
 
   return (
-    <tr className="hover:bg-gray-50 cursor-pointer">
+    <tr className="hover:bg-gray-50">
       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600">
         {application.applicationNumber}
       </td>
@@ -45,6 +45,14 @@ const ApplicationRow = ({ application }) => {
       </td>
       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
         {formatDate(application.createdAt)}
+      </td>
+      <td className="px-6 py-4 whitespace-nowrap text-sm">
+        <button
+          onClick={() => onActionClick(application)}
+          className="px-3 py-1 bg-blue-600 text-white text-xs font-medium rounded hover:bg-blue-700 transition"
+        >
+          Update Status
+        </button>
       </td>
     </tr>
   );
