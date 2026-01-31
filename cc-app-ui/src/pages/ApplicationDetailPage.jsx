@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../api/axios";
 import { useParams, useNavigate } from "react-router-dom";
 
-function ApplicationDetail() {
+function ApplicationDetailPage() {
   const { applicationNumber } = useParams();
   const navigate = useNavigate();
 
@@ -13,6 +13,8 @@ function ApplicationDetail() {
   const [showApproveModal, setShowApproveModal] = useState(false);
   const [showRejectModal, setShowRejectModal] = useState(false);
   const [rejectReason, setRejectReason] = useState("");
+
+  const [editableLimit, setEditableLimit] = useState("");
 
   useEffect(() => {
     fetchApplication();
@@ -29,7 +31,10 @@ function ApplicationDetail() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
-      if (res.data.success) setData(res.data.data);
+      if (res.data.success) {
+        setData(res.data.data);
+        setEditableLimit(res.data.data.creditLimit);
+      }
     } catch (err) {
       if (err.response?.status === 401) {
         localStorage.removeItem("cc-app-token");
@@ -46,9 +51,18 @@ function ApplicationDetail() {
     try {
       const token = localStorage.getItem("cc-app-token");
 
+      const payload = {
+        status,
+        rejectionReason: reason,
+      };
+
+      if (status === "APPROVED") {
+        payload.creditLimit = Number(editableLimit);
+      }
+
       await api.put(
         `/api/v1/application/${applicationNumber}/status`,
-        { status, rejectionReason: reason },
+        payload,
         { headers: { Authorization: `Bearer ${token}` } }
       );
 
@@ -67,6 +81,8 @@ function ApplicationDetail() {
 
   const { applicant } = data;
 
+  const canEditLimit = applicant.annualIncome > 500000;
+
   const statusColor = {
     SUBMITTED: "bg-yellow-100 text-yellow-700",
     APPROVED: "bg-green-100 text-green-700",
@@ -83,7 +99,9 @@ function ApplicationDetail() {
           <h1 className="text-2xl font-bold text-gray-800">
             Application #{data.applicationNumber}
           </h1>
-          <span className={`px-4 py-1 rounded-full text-sm font-semibold ${statusColor[data.status]}`}>
+          <span
+            className={`px-4 py-1 rounded-full text-sm font-semibold ${statusColor[data.status]}`}
+          >
             {data.status}
           </span>
         </div>
@@ -106,13 +124,42 @@ function ApplicationDetail() {
           </div>
 
           {/* Credit */}
-          <div className="bg-white rounded-xl shadow p-6 space-y-2">
+          <div className="bg-white rounded-xl shadow p-6 space-y-3">
             <h3 className="text-lg font-semibold text-blue-600 mb-2">
               Credit Details
             </h3>
+
             <p><b>Score:</b> {data.creditScore}</p>
-            <p><b>Limit:</b> ₹{data.creditLimit.toLocaleString()}</p>
+
+            {/* Editable credit limit if income > 5L */}
+            <div>
+              <b>Limit:</b>
+
+              {canEditLimit && data.status === "SUBMITTED" ? (
+                <input
+                  type="number"
+                  className="ml-2 border rounded-lg px-3 py-1 w-40 focus:ring-2 focus:ring-blue-500"
+                  value={editableLimit}
+                  onChange={(e) =>
+                    setEditableLimit(
+                      Math.max(0, parseInt(e.target.value || 0))
+                    )
+                  }
+                />
+              ) : (
+                <span className="ml-2">
+                  ₹{data.creditLimit.toLocaleString()}
+                </span>
+              )}
+            </div>
+
             <p><b>Card Type:</b> {data.cardType}</p>
+
+            {canEditLimit && (
+              <p className="text-sm text-gray-500">
+                (Income above ₹5L — credit limit can be adjusted)
+              </p>
+            )}
           </div>
 
           {/* Address */}
@@ -187,11 +234,30 @@ function ApplicationDetail() {
       {showApproveModal && (
         <Modal>
           <h3 className="text-lg font-semibold mb-4">Approve Application?</h3>
-          <p className="text-gray-600 mb-6">
-            Are you sure you want to approve this application?
-          </p>
+
+          {canEditLimit && (
+            <div className="mb-4">
+              <label className="block text-sm font-semibold mb-1">
+                Final Credit Limit
+              </label>
+              <input
+                type="number"
+                className="w-full border rounded-lg px-3 py-2"
+                value={editableLimit}
+                onChange={(e) =>
+                  setEditableLimit(
+                    Math.max(0, parseInt(e.target.value || 0))
+                  )
+                }
+              />
+            </div>
+          )}
+
           <div className="flex justify-end gap-3">
-            <button onClick={() => setShowApproveModal(false)} className="px-4 py-2 border rounded">
+            <button
+              onClick={() => setShowApproveModal(false)}
+              className="px-4 py-2 border rounded"
+            >
               Cancel
             </button>
             <button
@@ -216,7 +282,10 @@ function ApplicationDetail() {
             onChange={(e) => setRejectReason(e.target.value)}
           />
           <div className="flex justify-end gap-3">
-            <button onClick={() => setShowRejectModal(false)} className="px-4 py-2 border rounded">
+            <button
+              onClick={() => setShowRejectModal(false)}
+              className="px-4 py-2 border rounded"
+            >
               Cancel
             </button>
             <button
@@ -233,7 +302,7 @@ function ApplicationDetail() {
   );
 }
 
-export default ApplicationDetail;
+export default ApplicationDetailPage;
 
 function Modal({ children }) {
   return (

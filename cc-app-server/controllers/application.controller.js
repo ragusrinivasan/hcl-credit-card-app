@@ -117,7 +117,7 @@ exports.getAllApplications = async (req, res) => {
 exports.updateApplicationStatus = async (req, res) => {
     try {
         const { applicationNumber } = req.params;
-        const { status, rejectionReason } = req.body;
+        const { status, rejectionReason, creditLimit } = req.body;
 
         const validStatuses = ['SUBMITTED', 'CHECK_IN_PROGRESS', 'APPROVED', 'REJECTED', 'DISPATCHED'];
         if (!validStatuses.includes(status)) {
@@ -145,7 +145,9 @@ exports.updateApplicationStatus = async (req, res) => {
         // Update status
         application.status = status;
         application.rejectionReason = status === 'REJECTED' ? rejectionReason : null;
-
+        if(creditLimit){
+            application.creditLimit = creditLimit;
+        }
         // Add to status history
         application.statusHistory.push({
             status,
